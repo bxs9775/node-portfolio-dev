@@ -13,7 +13,7 @@ const expressHandlebars = require('express-handlebars');
 const port = process.env.PORT || process.env.NODE_PORT || 3001;
 
 // sets the url for the connected database
-const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/Porfolio';
+const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/Portfolio';
 
 // trys to connect to the database
 mongoose.connect(dbURL, (err) => {

@@ -41,6 +41,23 @@ const DateSchema = new mongoose.Schema({
   },
 });
 
+const ImageSchema = new mongoose.Schema({
+  big: {
+    type: String,
+    required: true,
+    trim: true,
+    set: sanitizeString,
+    match: /^[A-Za-z._-]{1,64}$/,
+  },
+  small: {
+    type: String,
+    required: true,
+    trim: true,
+    set: sanitizeString,
+    match: /^[A-Za-z._-]{1,64}$/,
+  },
+});
+
 const LinkSchema = new mongoose.Schema({
   text: {
     type: String,
@@ -73,6 +90,10 @@ const ProjectSchema = new mongoose.Schema({
   },
   endDate: {
     type: DateSchema,
+    required: true,
+  },
+  images: {
+    type: ImageSchema,
     required: true,
   },
   languages: {

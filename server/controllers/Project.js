@@ -28,6 +28,14 @@ const editProject = (request, response) => {
       if (body.name.full) {
         newProject.name.full = body.name.full;
       }
+      if (body.images) {
+        if (body.images.big) {
+          newProject.images.big = body.images.big;
+        }
+        if (body.images.small) {
+          newProject.images.small = body.images.small;
+        }
+      }
       if (body.startdate) {
         newProject.startDate = body.startdate;
       }
@@ -54,13 +62,17 @@ const editProject = (request, response) => {
       // Create new
       if (!body.startdate || !body.enddate) {
         msg = 'Missing required param startdate or enddate';
-        return req.status(400).json({ error: msg });
+        return res.status(400).json({ error: msg });
       }
-
+      if (!body.images || !body.images.big || !body.images.small) {
+        msg = 'Missing required param image';
+        return res.status(400).json({ error: msg });
+      }
       const projectData = {
         name: body.name,
         startDate: body.startdate,
         endDate: body.enddate,
+        images: body.images,
       };
 
       if (body.featured) {
