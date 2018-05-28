@@ -7,6 +7,7 @@ const _ = require('underscore');
 let ProjectModel = {};
 
 const sanitizeString = str => _.escape(str).trim();
+const sanitizeArray = array => array.map(sanitizeString);
 
 const NameSchema = new mongoose.Schema({
   full: {
@@ -71,7 +72,7 @@ const LinkSchema = new mongoose.Schema({
     required: true,
     trim: true,
     set: sanitizeString,
-    match: /^https?:\/\/[A-Za-z0-9_.~!*'();:@&=+$,\/?#\[\]-]{1,64}$/,
+    match: /^https?:\/\/[A-Za-z0-9_.~!*'();:@&=+$,/?#[\]-]{1,64}$/,
   },
 });
 
@@ -99,28 +100,28 @@ const ProjectSchema = new mongoose.Schema({
   languages: {
     type: [String],
     trim: true,
-    set: sanitizeString,
+    set: sanitizeArray,
     match: /^.{1,16}$/,
   },
   skills: {
     type: [String],
     trim: true,
-    set: sanitizeString,
+    set: sanitizeArray,
     match: /^.{1,16}$/,
   },
   teammates: {
     type: [String],
     trim: true,
-    set: sanitizeString,
+    set: sanitizeArray,
     match: /^[A-Za-z ]{1,16}$/,
   },
   links: {
     type: [LinkSchema],
   },
   description: {
-    type: String,
+    type: [String],
     trim: true,
-    set: sanitizeString,
+    set: sanitizeArray,
     minlength: 1,
     maxlength: 2048,
   },

@@ -51,6 +51,9 @@ const editProject = (request, response) => {
       if (body.skills) {
         newProject.skills = body.skills;
       }
+      if (body.teammates) {
+        newProject.teammates = body.teammates;
+      }
       if (body.description) {
         newProject.description = body.description;
       }
@@ -83,6 +86,9 @@ const editProject = (request, response) => {
       }
       if (body.skills) {
         projectData.skills = body.skills;
+      }
+      if (body.teammates) {
+        projectData.teammates = body.teammates;
       }
       if (body.description) {
         projectData.description = body.description;
