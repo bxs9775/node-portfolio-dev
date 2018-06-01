@@ -156,6 +156,15 @@ ProjectSchema.statics.findByName = (name, callback) => {
   return ProjectModel.findOne(search).exec(callback);
 };
 
+ProjectSchema.statics.getFilterValues = (success, error) => {
+  const getPromise = mongoose.Promise.all([
+    ProjectModel.distinct('languages'),
+    ProjectModel.distinct('skills'),
+  ]);
+  getPromise.then(success);
+  getPromise.catch(error);
+};
+
 ProjectModel = mongoose.model('Project', ProjectSchema);
 
 module.exports = {
