@@ -57,6 +57,9 @@ const editProject = (request, response) => {
       if (body.links) {
         newProject.links = body.links;
       }
+      if (body.programmingWork) {
+        newProject.programmingWork = body.programmingWork;
+      }
       if (body.description) {
         newProject.description = body.description;
       }
@@ -95,6 +98,9 @@ const editProject = (request, response) => {
       }
       if (body.links) {
         projectData.links = body.links;
+      }
+      if (body.programmingWork) {
+        projectData.programmingWork = body.programmingWork;
       }
       if (body.description) {
         projectData.description = body.description;

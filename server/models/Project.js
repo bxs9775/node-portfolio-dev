@@ -118,6 +118,12 @@ const ProjectSchema = new mongoose.Schema({
   links: {
     type: [LinkSchema],
   },
+  programmingWork: {
+    type: [String],
+    trim: true,
+    set: sanitizeArray,
+    match: /^[A-Za-z ]{1,128}$/,
+  },
   description: {
     type: [String],
     trim: true,
