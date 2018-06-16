@@ -16,7 +16,7 @@ const editProject = (request, response) => {
   return Project.ProjectModel.findByName(body.name.short, (err, docs) => {
     if (err) {
       msg = 'An error has occured.';
-      res.status.json({ error: msg });
+      return res.status(400).json({ error: msg });
     }
     let newProject = {};
     let callback = {};
@@ -64,9 +64,7 @@ const editProject = (request, response) => {
         newProject.description = body.description;
       }
 
-      callback = () => {
-        res.status(204).send('');
-      };
+      callback = () => res.status(204).send('');
     } else {
       // Create new
       if (!body.startdate || !body.enddate) {
@@ -107,9 +105,7 @@ const editProject = (request, response) => {
       }
       newProject = new Project.ProjectModel(projectData);
 
-      callback = () => {
-        res.status(200).json({ message: `Project ${body.name.short} created.` });
-      };
+      callback = () => res.status(200).json({ message: `Project ${body.name.short} created.` });
     }
     const savePromise = newProject.save();
 
@@ -124,6 +120,30 @@ const editProject = (request, response) => {
   });
 };
 
+const deleteProject = (request, response) => {
+  const req = request;
+  const res = response;
+
+
+  let msg = '';
+
+  if (!req.body.name) {
+    msg = 'Missing required param name';
+    return res.status(400).json({ error: msg });
+  }
+
+  return Project.ProjectModel.deleteProject(req.body.name, (err) => {
+    if (err) {
+      console.dir(err);
+      msg = 'An error has occured.';
+      return res.status(400).json({ error: msg });
+    }
+    msg = `Project '${req.body.name}' has successfuly been deleted.`;
+    return res.status(200).json({ error: msg });
+  });
+};
+
 module.exports = {
   editProject,
+  deleteProject,
 };

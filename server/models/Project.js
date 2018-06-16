@@ -171,6 +171,12 @@ ProjectSchema.statics.getFilterValues = (success, error) => {
   getPromise.catch(error);
 };
 
+ProjectSchema.statics.deleteProject = (name, callback) => {
+  const search = { 'name.short': name };
+
+  return ProjectModel.deleteOne(search, callback);
+};
+
 ProjectModel = mongoose.model('Project', ProjectSchema);
 
 module.exports = {
